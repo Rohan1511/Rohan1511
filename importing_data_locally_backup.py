@@ -272,27 +272,42 @@ def Sh(i):
 path_to_save = '/FLood/Nasa_floodchallenge/Pre_processing/train_1/'
 
 # This is when the training data is divided 
-for i in range (sub_train_df.index.min(),sub_train_df.index.max()):
-  vv_image = cv2.imread(sub_train_df['vv_image_path'][i],0) /255.0
-  vh_image = cv2.imread(sub_train_df['vh_image_path'][i],0) /255.0
-  water_mask = cv2.imread(sub_train_df['water_body_label_path'][i],0) /255.0
-  try_stack = np.stack([vv_image, vh_image, water_mask], axis=2)
-  #try_stack2.append(try_stack)
-  # write in file  
-  name_img = sub_train_df['vv_image_path'][i].split('\\')[-1]
-  path_save = os.path.join(path_to_save,name_img)
-  cv2.imwrite(path_save, try_stack[:,:,0:3]*255)
+# =============================================================================
+# for i in range (sub_train_df.index.min(),sub_train_df.index.max()):
+#   vv_image = cv2.imread(sub_train_df['vv_image_path'][i],0) /255.0
+#   vh_image = cv2.imread(sub_train_df['vh_image_path'][i],0) /255.0
+#   water_mask = cv2.imread(sub_train_df['water_body_label_path'][i],0) /255.0
+#   try_stack = np.stack([vv_image, vh_image, water_mask], axis=2)
+#   #try_stack2.append(try_stack)
+#   # write in file  
+#   name_img = sub_train_df['vv_image_path'][i].split('\\')[-1]
+#   path_save = os.path.join(path_to_save,name_img)
+#   cv2.imwrite(path_save, try_stack[:,:,0:3]*255)
+# 
+# 
+# path_to_save = '/FLood/Nasa_floodchallenge/Pre_processing/train_2/'
+# ## This is when the training data is divided 
+# for i in range (development_df.index.min(),development_df.index.max()):
+#   vv_image = cv2.imread(development_df['vv_image_path'][i],0) /255.0
+#   vh_image = cv2.imread(development_df['vh_image_path'][i],0) /255.0
+#   water_mask = cv2.imread(development_df['water_body_label_path'][i],0) /255.0
+#   try_stack = np.stack([vv_image, vh_image, water_mask], axis=2)
+#   #try_stack2.append(try_stack)
+#   # write in file  
+#   name_img = development_df['vv_image_path'][i].split('\\')[-1]
+#   path_save = os.path.join(path_to_save,name_img)
+#   cv2.imwrite(path_save, try_stack[:,:,0:3]*255)
+# =============================================================================
+  
+os.mkdir('train_2_labels')
+path_to_save = '/Flood/Nasa_floodchallenge/Pre_processing/train_2_labels/'
 
-
-path_to_save = '/FLood/Nasa_floodchallenge/Pre_processing/train_2/'
-## This is when the training data is divided 
 for i in range (development_df.index.min(),development_df.index.max()):
-  vv_image = cv2.imread(development_df['vv_image_path'][i],0) /255.0
-  vh_image = cv2.imread(development_df['vh_image_path'][i],0) /255.0
-  water_mask = cv2.imread(development_df['water_body_label_path'][i],0) /255.0
-  try_stack = np.stack([vv_image, vh_image, water_mask], axis=2)
-  #try_stack2.append(try_stack)
-  # write in file  
-  name_img = development_df['vv_image_path'][i].split('\\')[-1]
-  path_save = os.path.join(path_to_save,name_img)
-  cv2.imwrite(path_save, try_stack[:,:,0:3]*255)
+    flood_mask = cv2.imread(development_df['flood_label_path'][i],0)
+    name_img = development_df['vv_image_path'][i].split('\\')[-1]
+    path_save = os.path.join(path_to_save,name_img)
+    cv2.imwrite(path_save, flood_mask)
+    
+
+  
+  
